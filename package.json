@@ -1,0 +1,19 @@
+{
+  "name": "mesto-project-ff",
+  "version": "1.0.0",
+  "description": "Проект \"Mesto' https://github.com/ElenaLitvyak/mesto-project-ff",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'Привет!'",
+    "check": "prettier --check './**/*.{html,css,js}'",
+    "format": "prettier --write './**/*.{html,css,js}'",
+    "lint": "stylelint '**/*.css'",
+    "lintfix": "stylelint '**/*.css' --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "prettier": "^3.0.3",
+    "stylelint": "^15.11.0"
+  }
+}
