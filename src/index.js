@@ -1,13 +1,10 @@
 import './pages/index.css';
 import { initialCards } from './scripts/cards';
-import { createCard, renderCard, handleDeleteCard, handleClickImage } from './components/card';
+import { createCard, renderCard, handleDeleteCard, likeCard, handleClickImage } from './components/card';
 import { openModal, closeModal } from './components/modal';
 
-const content = document.querySelector('.content');
-export const cardContainer = content.querySelector('.places__list');
-
 initialCards.forEach((card) => { 
-  renderCard(createCard(card, handleDeleteCard, handleClickImage));
+  renderCard(createCard(card, handleDeleteCard, likeCard, handleClickImage));
 });  
 
 const popupEdit = document.querySelector('.popup_type_edit');
@@ -68,7 +65,7 @@ function handleFormNewPlaceSubmit(evt) {
   link: linkInput.value,
   };
 
-  renderCard(createCard(card, handleDeleteCard, handleClickImage), true);
+  renderCard(createCard(card, handleDeleteCard, likeCard, handleClickImage), true);
   popupNewCard.classList.remove('popup_is-opened');
   evt.target.reset();
 };
@@ -76,11 +73,7 @@ function handleFormNewPlaceSubmit(evt) {
 formNewPlace.addEventListener('submit', handleFormNewPlaceSubmit);
 
 export const popupImage = document.querySelector('.popup_type_image');
-const cardImages = document.querySelectorAll('.card__image');
-export const image = popupImage.querySelector('.popup__image');
 const closePopupImage = popupImage.querySelector('.popup__close');
-export const popupCardTitle = document.querySelector('.popup__caption');
-
 
 closePopupImage.addEventListener('click', function(evt) {
   evt.preventDefault();
