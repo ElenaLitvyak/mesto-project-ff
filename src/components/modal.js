@@ -4,15 +4,14 @@ export function openModal(domElement) {
   activeDomElement = domElement;
   domElement.classList.add('popup_is-opened');
   document.addEventListener('keydown', closeModalOnEsc);
-  domElement.classList.add('popup_is-animated'); 
-  domElement.addEventListener('click', closeModalOnBg);
 };
 
 export function closeModal(domElement) {
   activeDomElement = null;
   domElement.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', closeModalOnEsc); 
-  domElement.removeEventListener('click', closeModalOnBg);
+  let form = domElement.querySelector('.popup__form');
+  clearModal(form);
 };
 
 function closeModalOnEsc(evt) { 
@@ -21,8 +20,12 @@ function closeModalOnEsc(evt) {
   };
 };
 
-function closeModalOnBg(evt) {
+export function closeModalOnBg(evt) {
   if (evt.target === activeDomElement && activeDomElement !== null) {
     closeModal(activeDomElement);
   };
 };
+
+export function clearModal(form) {
+  form.reset();
+}
