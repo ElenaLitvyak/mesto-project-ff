@@ -57,6 +57,7 @@ function handleFormAddNewCardSubmit(evt) {
 
   renderCard(createCard(card, handleDeleteCard, handleLikeCard, handleClickImage), true);
   closeModal(popupAddNewCard);
+  formAddNewCard.reset();
 };
 
 buttonOpenPopupProfile.addEventListener('click', function(evt) {

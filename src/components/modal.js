@@ -10,10 +10,6 @@ export function closeModal(domElement) {
   activeDomElement = null;
   domElement.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', closeModalOnEsc); 
-  let form = domElement.querySelector('.popup__form');
-  if (form !== null) {
-    clearModal(form);
-  }
 };
 
 function closeModalOnEsc(evt) { 
@@ -27,7 +23,3 @@ export function closeModalOnBg(evt) {
     closeModal(activeDomElement);
   };
 };
-
-export function clearModal(form) {
-  form.reset();
-}
