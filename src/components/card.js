@@ -13,8 +13,8 @@ export function createCard(cardData, handleDeleteCard, handleLikeCard, handleCli
 
   buttonBasketDeleteCard .addEventListener('click', handleDeleteCard);
   cardContainer.addEventListener('click', handleLikeCard);
-  cardImage.addEventListener('click', handleClickImage);
-
+  cardImage.addEventListener('click', (evt) => handleClickImage(evt.target.alt, evt.target.src));
+  
   return cardElement;
 };
 

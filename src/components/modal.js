@@ -11,7 +11,9 @@ export function closeModal(domElement) {
   domElement.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', closeModalOnEsc); 
   let form = domElement.querySelector('.popup__form');
-  clearModal(form);
+  if (form !== null) {
+    clearModal(form);
+  }
 };
 
 function closeModalOnEsc(evt) { 

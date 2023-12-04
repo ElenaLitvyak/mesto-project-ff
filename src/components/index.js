@@ -40,12 +40,11 @@ function handleFormProfileSubmit(evt) {
   closeModal(popupProfile);
 };
 
-export function handleClickImage(evt) {
-  evt.preventDefault();
+export function handleClickImage(name, link) {
   openModal(popupFullImage);
-  photoPopupimage.src=evt.target.src;
-  photoPopupimage.alt=evt.target.alt;
-  popupCardTitle.textContent=evt.target.alt;
+  photoPopupimage.src=link;
+  photoPopupimage.alt=name;
+  popupCardTitle.textContent=name;
 };
 
 function handleFormAddNewCardSubmit(evt) {
@@ -58,7 +57,6 @@ function handleFormAddNewCardSubmit(evt) {
 
   renderCard(createCard(card, handleDeleteCard, handleLikeCard, handleClickImage), true);
   closeModal(popupAddNewCard);
-  evt.target.reset();
 };
 
 buttonOpenPopupProfile.addEventListener('click', function(evt) {
@@ -71,7 +69,6 @@ buttonOpenPopupProfile.addEventListener('click', function(evt) {
 buttonClosePopupProfile.addEventListener('click', function(evt) {
   evt.preventDefault();
   closeModal(popupProfile);
-  formProfile.reset();
 });
 
 formProfile.addEventListener('submit', handleFormProfileSubmit);
@@ -84,7 +81,6 @@ buttonOpenPopupAddNewCard.addEventListener('click', function(evt) {
 buttonClosePopupAddNewCard.addEventListener('click', function(evt) {
   evt.preventDefault();
   closeModal(popupAddNewCard);
-  formAddNewCard.reset();
 });
 
 formAddNewCard.addEventListener('submit', handleFormAddNewCardSubmit);
