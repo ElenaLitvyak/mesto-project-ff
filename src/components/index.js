@@ -2,6 +2,7 @@ import '../pages/index.css';
 import { initialCards } from './cards';
 import { createCard, handleDeleteCard, handleLikeCard} from './card';
 import { openModal, closeModal, closeModalOnBg } from './modal';
+import { enableValidation, clearValidation } from './validation';
 
 const content = document.querySelector('.content');
 export const cardContainer = content.querySelector('.places__list');
@@ -27,9 +28,9 @@ const popups = document.querySelectorAll('.popup');
 
 function renderCard(cardElement, isprepend = false) {
   if (isprepend) {
-   cardContainer.prepend(cardElement);
+    cardContainer.prepend(cardElement);
   } else {
-   cardContainer.append(cardElement);
+  cardContainer.append(cardElement);
   };
 };
 
@@ -58,15 +59,31 @@ function handleFormAddNewCardSubmit(evt) {
   renderCard(createCard(card, handleDeleteCard, handleLikeCard, handleClickImage), true);
   closeModal(popupAddNewCard);
   formAddNewCard.reset();
+  clearValidation(popupAddNewCard, {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+  });
 };
 
 buttonOpenPopupProfile.addEventListener('click', function(evt) {
   evt.preventDefault();
   openModal(popupProfile);
+  clearValidation(popupProfile, {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+   errorClass: 'popup__error_visible'
+  });
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
 });
-  
+ 
 buttonClosePopupProfile.addEventListener('click', function(evt) {
   evt.preventDefault();
   closeModal(popupProfile);
@@ -78,7 +95,7 @@ buttonOpenPopupAddNewCard.addEventListener('click', function(evt) {
   evt.preventDefault();
   openModal(popupAddNewCard);
 });
-  
+ 
 buttonClosePopupAddNewCard.addEventListener('click', function(evt) {
   evt.preventDefault();
   closeModal(popupAddNewCard);
@@ -93,8 +110,17 @@ buttonClosePopupFullImage.addEventListener('click', function(evt) {
 
 initialCards.forEach((card) => { 
   renderCard(createCard(card, handleDeleteCard, handleLikeCard, handleClickImage));
-});  
+});
 
 popups.forEach((popup) => {
   popup.addEventListener('click', closeModalOnBg);
 });
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}); 
