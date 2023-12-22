@@ -47,17 +47,8 @@ export function handleDeleteCard(event) {
   closeModal(popupDeleteCard);
  })
 
+}
 
-
-
-console.log(cardId)
-
-
-
-  /*const item = event.target.closest('.card');
-  console.log()
-  item.remove();*/
-};
 
 export function handleLikeCard(evt) {
   if (evt.target.classList.contains('card__like-button')) {
