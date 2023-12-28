@@ -1,4 +1,4 @@
-import { inputName, inputJob, inputPlace, inputLink, inputAvatar } from './index';
+import { checkResponse } from './utils';
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/wff-cohort-3',
@@ -8,126 +8,51 @@ const config = {
   }
 };
 
-export const getUserInformation = () => {
-    return fetch(`${config.baseUrl}/users/me`, {
-        headers: config.headers
+function request(url, options) {
+   return fetch(url, options).then(checkResponse)
+};
+
+export const getUserInformation = request(`${config.baseUrl}/users/me`, {headers: config.headers});
+
+export const getInitialCards = request(`${config.baseUrl}/cards`, {headers: config.headers});
+
+export const patchUserInformation = (name, job) => request(`${config.baseUrl}/users/me`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+        name: name,
+        about: job,
     })
-    .then(res => {
-        if (res.ok) {
-            return res.json();
-        }
+});
 
-        return Promise.reject(`Ошибка:${res.status}`);
-    });
-};
-
-export const getInitialCards = () => {
-    return fetch(`${config.baseUrl}/cards`, {
-        headers: config.headers
+export const postNewCard = (name, link) => request(`${config.baseUrl}/cards`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({
+      name: name,
+      link: link,
     })
-    .then(res => {
-        if (res.ok) {
-            return res.json();
-        }
+});
 
-        return Promise.reject(`Ошибка:${res.status}`);
-    });
-};
+export const deleteMyCard = (_id) => request(`${config.baseUrl}/cards/${_id}`, {
+    method: 'DELETE', 
+    headers: config.headers
+});
 
-export const patchUserInformation = () => {
-    return fetch(`${config.baseUrl}/users/me`, {
-        method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify({
-            name: inputName.value,
-            about: inputJob.value,
-        })
+export const patchAvatar = (avatar) => request(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+        avatar: avatar,
     })
-    .then(res => {
-        if (res.ok) {
-            return res.json();
-        }
+});
 
-        return Promise.reject(`Ошибка:${res.status}`);
-    });
-};
- 
-export const postNewCard = () => {
-    return fetch(`${config.baseUrl}/cards`, {
-        method: 'POST',
-        headers: config.headers,
-        body: JSON.stringify({
-          name: inputPlace.value,
-          link: inputLink.value,
-        })
-    })
-    .then(res => {
-        if (res.ok) {
-            return res.json();
-        }
+export const putLikeCard = (_id) => request(`${config.baseUrl}/cards/likes/${_id}`, {
+    method: 'PUT',
+    headers: config.headers,
+});
 
-        return Promise.reject(`Ошибка:${res.status}`);
-    });
-};
-
-export const deleteMyCard = (_id) => {
-    return fetch(`${config.baseUrl}/cards/${_id}`, {
-        method: 'DELETE',
-        headers: config.headers,
-        })
-    .then(res => {
-        if (res.ok) {
-            return;
-        }
-
-        return Promise.reject(`Ошибка:${res.status}`);
-    });
-};
-
-export const patchAvatar = () => {
-    return fetch(`${config.baseUrl}/users/me/avatar`, {
-        method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify({
-            avatar: inputAvatar.value,
-        })
-    })
-    .then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-
-        return Promise.reject(`Ошибка:${res.status}`);
-    });
-};
-
-export const putLikeCard = (_id) => {
-    return fetch(`${config.baseUrl}/cards/likes/${_id}`, {
-        method: 'PUT',
-        headers: config.headers,
-    })
-    .then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-
-        return Promise.reject(`Ошибка:${res.status}`);
-    });
-};
-
-export const deleteLikeCard = (_id) => {
-    return fetch(`${config.baseUrl}/cards/likes/${_id}`, {
-        method: 'DELETE',
-        headers: config.headers,
-        body: JSON.stringify({
-            /*likes: inputName.value,*/
-        })
-    })
-    .then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-
-        return Promise.reject(`Ошибка:${res.status}`);
-    });
-};
+export const deleteLikeCard = (_id) => request(`${config.baseUrl}/cards/likes/${_id}`, {
+    method: 'DELETE',
+    headers: config.headers,
+});
