@@ -10,8 +10,6 @@ export function createCard(cardData, handleDeleteCard, handleLikeCard, handleCli
   const likesCounter = cardElement.querySelector('.card__paragraph')
   const buttonBasketDeleteCard = cardElement.querySelector('.card__delete-button');
   const buttonLikeCard = cardElement.querySelector('.card__like-button');
-  const popupDeleteCard = document.querySelector('.popup_type_delete');
-  const buttonAgreeDeleteCard = document.querySelector('#conformation_popup_agree');
  
   cardElement.id = cardData._id;
   cardTitle.textContent = cardData.name;
@@ -27,11 +25,7 @@ export function createCard(cardData, handleDeleteCard, handleLikeCard, handleCli
     buttonBasketDeleteCard.classList.add('button_is-invisible')
   }
 
-  buttonBasketDeleteCard.addEventListener('click', function(evt) {
-    buttonAgreeDeleteCard.setAttribute('data-id', cardData._id);
-    openModal(popupDeleteCard);
-    buttonAgreeDeleteCard.addEventListener('click', handleDeleteCard);
-  });
+  buttonBasketDeleteCard.addEventListener('click', (evt) => handleDeleteCard(cardData._id));
 
   buttonLikeCard.addEventListener('click', function(evt) {
     buttonLikeCard.setAttribute('data-id', cardData._id);
@@ -66,7 +60,14 @@ export function handleLikeCard(evt, cardId, likesCounter) {
   }
 };
 
-export function handleDeleteCard(event) {
+export function handleDeleteCard(cardId) {
+  const popupDeleteCard = document.querySelector('.popup_type_delete');
+  const buttonAgreeDeleteCard = document.querySelector('#conformation_popup_agree');
+  buttonAgreeDeleteCard.setAttribute('data-id', cardId);
+  openModal(popupDeleteCard);
+};
+
+export function deleteCard(event) {
   const cardId = event.target.getAttribute('data-id');
 
   deleteMyCard(cardId)

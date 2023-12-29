@@ -1,5 +1,5 @@
 import '../pages/index.css';
-import { createCard, handleDeleteCard, handleLikeCard } from './card';
+import { createCard, handleDeleteCard, handleLikeCard, deleteCard } from './card';
 import { openModal, closeModal, closeModalOnBg } from './modal';
 import { enableValidation, clearValidation } from './validation';
 import { getUserInformation, getInitialCards, patchUserInformation, postNewCard, patchAvatar } from './api';
@@ -162,6 +162,8 @@ buttonOpenPopupAvatar.addEventListener('click', function(evt) {
 });
 
 formAvatar.addEventListener('submit', handleFormAvatarSubmit);
+
+buttonAgreeDeleteCard.addEventListener('click', deleteCard);
 
 popups.forEach((popup) => {
   popup.addEventListener('click', closeModalOnBg);
